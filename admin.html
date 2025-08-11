@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Update Match Results | Olympique Ouezzane</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            min-height: 100vh;
+            padding: 2rem 0;
+        }
+        
+        .admin-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: rgba(30, 41, 59, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(26, 77, 58, 0.2);
+            backdrop-filter: blur(20px);
+        }
+        
+        .admin-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--text-light);
+        }
+        
+        .admin-header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+        
+        .admin-header p {
+            color: var(--text-gray);
+            font-size: 1.1rem;
+        }
+        
+        .back-btn {
+            background: var(--gradient-primary);
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            transition: var(--transition);
+            font-weight: 600;
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(26, 77, 58, 0.3);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid rgba(26, 77, 58, 0.3);
+            border-radius: 10px;
+            font-size: 1rem;
+            background: rgba(15, 23, 42, 0.8);
+            color: var(--text-light);
+            transition: var(--transition);
+        }
+        
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--accent-red);
+            box-shadow: 0 0 20px rgba(220, 38, 38, 0.2);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .player-scores {
+            background: rgba(15, 23, 42, 0.6);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border: 1px solid rgba(26, 77, 58, 0.2);
+        }
+        
+        .player-scores h3 {
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        
+        .submit-btn {
+            background: var(--gradient-accent);
+            color: white;
+            border: none;
+            padding: 18px 36px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 2rem;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(220, 38, 38, 0.4);
+        }
+        
+        .success-message {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            display: none;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .results-list {
+            margin-top: 3rem;
+            background: rgba(15, 23, 42, 0.6);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(26, 77, 58, 0.2);
+        }
+        
+        .results-list h3 {
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        
+        .result-item {
+            background: rgba(30, 41, 59, 0.8);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--accent-red);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+        
+        .result-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .delete-btn {
+            background: var(--gradient-accent);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .delete-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(220, 38, 38, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            .admin-container {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .result-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <a href="index.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Back to Website
+        </a>
+        
+        <div class="admin-header">
+            <h1><i class="fas fa-cog"></i> Match Results Admin</h1>
+            <p>Enter results after each gameweek to update the website</p>
+        </div>
+        
+        <div class="success-message" id="successMessage">
+            Match result updated successfully!
+        </div>
+        
+        <form id="resultForm">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="gameweek">Gameweek</label>
+                    <select id="gameweek" required>
+                        <option value="">Select Gameweek</option>
+                        <option value="1">GW 1 - vs Racing</option>
+                        <option value="2">GW 2 - vs Dinamo Zagreb</option>
+                        <option value="3">GW 3 - vs Middlesbrough</option>
+                        <option value="4">GW 4 - vs Real Betis</option>
+                        <option value="5">GW 5 - vs Corinthians</option>
+                        <option value="6">GW 6 - vs Rubin Kazan</option>
+                        <option value="7">GW 7 - vs Le Havre</option>
+                        <option value="8">GW 8 - vs AS FAR</option>
+                        <option value="9">GW 9 - vs LOSC Lille</option>
+                        <option value="10">GW 10 - vs Queens Park Rangers</option>
+                        <option value="11">GW 11 - vs CR Bernoussi</option>
+                        <option value="12">GW 12 - vs Racing</option>
+                        <option value="13">GW 13 - vs Dinamo Zagreb</option>
+                        <option value="14">GW 14 - vs Middlesbrough</option>
+                        <option value="15">GW 15 - vs Real Betis</option>
+                        <option value="16">GW 16 - vs Corinthians</option>
+                        <option value="17">GW 17 - vs Rubin Kazan</option>
+                        <option value="18">GW 18 - vs Le Havre</option>
+                        <option value="19">GW 19 - vs AS FAR</option>
+                        <option value="20">GW 20 - vs LOSC Lille</option>
+                        <option value="21">GW 21 - vs Queens Park Rangers</option>
+                        <option value="22">GW 22 - vs CR Bernoussi</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="ourScore">Our Team Score</label>
+                    <input type="number" id="ourScore" required min="0" placeholder="Total points of our 4 players">
+                </div>
+                
+                <div class="form-group">
+                    <label for="opponentScore">Opponent Score</label>
+                    <input type="number" id="opponentScore" required min="0" placeholder="Total points of opponent's 4 players">
+                </div>
+            </div>
+            
+            <div class="player-scores">
+                <h3>Individual Player Scores</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="haitamPoints">Haitam Points</label>
+                        <input type="number" id="haitamPoints" required min="0" placeholder="0">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ahmedPoints">Ahmed Points</label>
+                        <input type="number" id="ahmedPoints" required min="0" placeholder="0">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="zakariaPoints">Zakaria Points</label>
+                        <input type="number" id="zakariaPoints" required min="0" placeholder="0">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="aymanePoints">Aymane Points</label>
+                        <input type="number" id="aymanePoints" required min="0" placeholder="0">
+                    </div>
+                </div>
+            </div>
+            
+            <button type="submit" class="submit-btn">Update Match Result</button>
+        </form>
+        
+        <div class="results-list">
+            <h3>Completed Matches</h3>
+            <div id="resultsList">
+                <p>No matches completed yet</p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="database.js"></script>
+    <script>
+        // Auto-calculate team score when individual scores change
+        function updateTeamScore() {
+            const haitam = parseInt(document.getElementById('haitamPoints').value) || 0;
+            const ahmed = parseInt(document.getElementById('ahmedPoints').value) || 0;
+            const zakaria = parseInt(document.getElementById('zakariaPoints').value) || 0;
+            const aymane = parseInt(document.getElementById('aymanePoints').value) || 0;
+            
+            const total = haitam + ahmed + zakaria + aymane;
+            document.getElementById('ourScore').value = total;
+        }
+        
+        // Add event listeners to player score inputs
+        ['haitamPoints', 'ahmedPoints', 'zakariaPoints', 'aymanePoints'].forEach(id => {
+            document.getElementById(id).addEventListener('input', updateTeamScore);
+        });
+        
+        // Handle form submission
+        document.getElementById('resultForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const gameweek = parseInt(document.getElementById('gameweek').value);
+            const ourScore = parseInt(document.getElementById('ourScore').value);
+            const opponentScore = parseInt(document.getElementById('opponentScore').value);
+            const haitamPoints = parseInt(document.getElementById('haitamPoints').value);
+            const ahmedPoints = parseInt(document.getElementById('ahmedPoints').value);
+            const zakariaPoints = parseInt(document.getElementById('zakariaPoints').value);
+            const aymanePoints = parseInt(document.getElementById('aymanePoints').value);
+            
+            // Validate that individual scores add up to team score
+            const calculatedTotal = haitamPoints + ahmedPoints + zakariaPoints + aymanePoints;
+            if (calculatedTotal !== ourScore) {
+                alert(`Individual player scores (${calculatedTotal}) don't match team score (${ourScore})`);
+                return;
+            }
+            
+            // Update result in database
+            db.updateMatchResult(gameweek, ourScore, opponentScore, haitamPoints, ahmedPoints, zakariaPoints, aymanePoints);
+            
+            // Show success message
+            const successMessage = document.getElementById('successMessage');
+            successMessage.style.display = 'block';
+            setTimeout(() => {
+                successMessage.style.display = 'none';
+            }, 3000);
+            
+            // Clear form
+            document.getElementById('resultForm').reset();
+            
+            // Refresh results list
+            loadResults();
+        });
+        
+        // Load and display existing results
+        function loadResults() {
+            const results = db.getResults();
+            const resultsList = document.getElementById('resultsList');
+            
+            if (results.length === 0) {
+                resultsList.innerHTML = '<p>No matches completed yet</p>';
+                return;
+            }
+            
+            const opponents = [
+                '', 'Racing', 'Dinamo Zagreb', 'Middlesbrough', 'Real Betis', 'Corinthians',
+                'Rubin Kazan', 'Le Havre', 'AS FAR', 'LOSC Lille', 'Queens Park Rangers', 'CR Bernoussi',
+                'Racing', 'Dinamo Zagreb', 'Middlesbrough', 'Real Betis', 'Corinthians',
+                'Rubin Kazan', 'Le Havre', 'AS FAR', 'LOSC Lille', 'Queens Park Rangers', 'CR Bernoussi'
+            ];
+            
+            resultsList.innerHTML = results.map(result => `
+                <div class="result-item">
+                    <div>
+                        <strong>GW ${result.gameweek}</strong> vs ${opponents[result.gameweek]} - 
+                        <span style="color: ${result.result === 'WIN' ? '#16a34a' : result.result === 'LOSS' ? '#dc2626' : '#eab308'}">
+                            ${result.ourScore}-${result.opponentScore} (${result.result})
+                        </span>
+                        <br>
+                        <small>H:${result.playerScores.haitam} A:${result.playerScores.ahmed} Z:${result.playerScores.zakaria} Ay:${result.playerScores.aymane}</small>
+                    </div>
+                    <button class="delete-btn" onclick="deleteResult(${result.gameweek})">Delete</button>
+                </div>
+            `).join('');
+        }
+        
+        // Delete a result
+        function deleteResult(gameweek) {
+            if (confirm(`Delete result for Gameweek ${gameweek}?`)) {
+                db.deleteMatchResult(gameweek);
+                loadResults();
+            }
+        }
+        
+        // Load results on page load
+        loadResults();
+    </script>
+</body>
+</html>
