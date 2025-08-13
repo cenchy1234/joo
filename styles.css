@@ -656,11 +656,11 @@ body::before {
     }
 
     .hero-title {
-        font-size: 2.5rem;
+        font-size: 3rem;
     }
 
     .section-title {
-        font-size: 1.8rem;
+        font-size: 2rem;
     }
 
     .fixtures-grid,
@@ -675,75 +675,6 @@ body::before {
 
     .vs {
         transform: rotate(90deg);
-    }
-
-    /* Mobile-specific improvements */
-    body {
-        padding: 0;
-    }
-
-    .container {
-        padding: 1rem;
-    }
-
-    .hero {
-        padding: 4rem 1rem 2rem;
-    }
-
-    .section {
-        padding: 2rem 1rem;
-    }
-
-    .card {
-        margin: 0.5rem 0;
-        padding: 1.5rem;
-    }
-
-    .nav-link {
-        padding: 1rem;
-        font-size: 1.1rem;
-    }
-
-    .cta-btn {
-        padding: 0.75rem 1.5rem;
-        font-size: 0.9rem;
-    }
-}
-
-/* Extra small devices (phones in portrait) */
-@media (max-width: 480px) {
-    .hero-title {
-        font-size: 2rem;
-    }
-
-    .section-title {
-        font-size: 1.5rem;
-    }
-
-    .hero {
-        padding: 3rem 1rem 1rem;
-    }
-
-    .section {
-        padding: 1.5rem 0.5rem;
-    }
-
-    .card {
-        padding: 1rem;
-    }
-
-    .nav-link {
-        padding: 0.75rem;
-        font-size: 1rem;
-    }
-
-    .cta-btn {
-        padding: 0.6rem 1.2rem;
-        font-size: 0.8rem;
-    }
-
-    .logo {
-        height: 40px;
     }
 }
 

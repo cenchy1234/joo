@@ -210,120 +210,25 @@
         }
 
         @media (max-width: 768px) {
-            body {
-                padding: 1rem 0;
+            .table-header,
+            .table-row {
+                grid-template-columns: 40px 40px 1fr 35px 35px 35px 35px 45px 45px 55px;
+                gap: 0.5rem;
+                padding: 0.75rem 1rem;
+                font-size: 0.9rem;
             }
 
-            .league-container {
-                padding: 1rem;
-                max-width: 100%;
+            .team-logo {
+                width: 25px;
+                height: 25px;
             }
 
             .page-header h1 {
                 font-size: 2rem;
             }
 
-            .league-table {
-                padding: 1rem;
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-            }
-
-            .table-header,
-            .table-row {
-                grid-template-columns: 40px 30px 1fr 35px 35px 35px 35px 45px 45px 55px;
-                gap: 0.5rem;
-                padding: 0.75rem 0.5rem;
-                font-size: 0.8rem;
-            }
-
-            .team-info {
-                flex-direction: row;
-                gap: 0.5rem;
-                align-items: center;
-            }
-
-            .team-logo {
-                width: 20px;
-                height: 20px;
-                flex-shrink: 0;
-            }
-
-            .team-name {
-                font-size: 0.8rem;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
-
             .season-stats {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-
-            .refresh-btn {
-                bottom: 1rem;
-                right: 1rem;
-                width: 50px;
-                height: 50px;
-                font-size: 1.2rem;
-            }
-
-            .back-btn {
-                padding: 0.6rem 1.2rem;
-                font-size: 0.9rem;
-            }
-
-            div[style*="display: flex"] {
-                flex-direction: column;
-                gap: 0.5rem !important;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .page-header h1 {
-                font-size: 1.8rem;
-            }
-
-            .table-header,
-            .table-row {
-                grid-template-columns: 30px 25px 1fr 30px 30px 30px 30px 40px 40px 50px;
-                gap: 0.3rem;
-                padding: 0.5rem 0.3rem;
-                font-size: 0.7rem;
-            }
-
-            .team-logo {
-                width: 16px;
-                height: 16px;
-            }
-
-            .team-name {
-                font-size: 0.7rem;
-            }
-
-            .refresh-btn {
-                width: 45px;
-                height: 45px;
-                font-size: 1rem;
-            }
-
-            .back-btn {
-                padding: 0.5rem 1rem;
-                font-size: 0.8rem;
-                text-align: center;
-            }
-
-            .season-stats {
-                padding: 1rem;
-            }
-
-            .stat-item h3 {
-                font-size: 1rem;
-            }
-
-            .stat-item p {
-                font-size: 0.8rem;
+                grid-template-columns: repeat(2, 1fr);
             }
         }
     </style>
