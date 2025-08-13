@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>Statistics & League Table | Olympique Ouezzane</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -334,8 +334,13 @@
         }
 
         @media (max-width: 768px) {
+            .statistics-container {
+                padding: 1rem;
+            }
+
             .stats-grid {
                 grid-template-columns: 1fr;
+                gap: 1rem;
             }
 
             .table-header,
@@ -353,6 +358,69 @@
 
             .page-header h1 {
                 font-size: 2rem;
+            }
+
+            .page-header {
+                margin-bottom: 2rem;
+            }
+
+            .performance-grid {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                gap: 1rem;
+            }
+
+            .chart-container {
+                height: 250px;
+                margin-top: 1rem;
+            }
+
+            .back-btn {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+
+            .refresh-btn {
+                bottom: 1rem;
+                right: 1rem;
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Extra small devices */
+        @media (max-width: 480px) {
+            .statistics-container {
+                padding: 0.5rem;
+            }
+
+            .table-header,
+            .table-row {
+                grid-template-columns: 30px 30px 1fr 30px 30px 30px 30px 40px 40px;
+                gap: 0.3rem;
+                padding: 0.5rem;
+                font-size: 0.8rem;
+            }
+
+            .team-logo {
+                width: 20px;
+                height: 20px;
+            }
+
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .performance-grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+
+            .stat-value {
+                font-size: 2rem;
+            }
+
+            .chart-container {
+                height: 200px;
             }
         }
     </style>

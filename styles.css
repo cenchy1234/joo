@@ -621,6 +621,31 @@ body::before {
 }
 
 /* Responsive Design */
+/* Mobile First - Small devices (landscape phones, 576px and up) */
+@media (max-width: 575.98px) {
+    .nav-container {
+        padding: 0 1rem;
+    }
+    
+    .hero-title {
+        font-size: 2rem !important;
+    }
+    
+    .section-title {
+        font-size: 1.5rem !important;
+    }
+    
+    .card {
+        margin: 0.5rem;
+        padding: 1rem;
+    }
+    
+    .nav-menu {
+        font-size: 0.9rem;
+    }
+}
+
+/* Medium devices (tablets, 768px and down) */
 @media (max-width: 768px) {
     .nav-menu {
         position: fixed;
@@ -633,6 +658,7 @@ body::before {
         transition: 0.3s;
         box-shadow: var(--shadow-strong);
         padding: 2rem 0;
+        backdrop-filter: blur(20px);
     }
 
     .nav-menu.active {
@@ -675,6 +701,71 @@ body::before {
 
     .vs {
         transform: rotate(90deg);
+    }
+
+    /* Container adjustments */
+    .container,
+    .nav-container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    /* Hero section adjustments */
+    .hero {
+        padding: 8rem 0 4rem;
+        text-align: center;
+    }
+
+    /* Section spacing */
+    .section {
+        padding: 3rem 0;
+    }
+
+    /* Button adjustments */
+    .btn-primary {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.9rem;
+    }
+
+    /* Card grid adjustments */
+    .card-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    /* Statistics specific */
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .performance-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+}
+
+/* Large tablets and small desktops */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .fixtures-grid,
+    .players-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .hero-title {
+        font-size: 3.5rem;
+    }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .btn-primary,
+    .nav-link,
+    .card {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    .nav-link {
+        padding: 1rem;
     }
 }
 
