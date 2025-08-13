@@ -184,6 +184,35 @@
             padding: 0;
         }
 
+        /* Force hamburger visibility on ALL screen sizes for testing */
+        .hamburger {
+            display: flex !important;
+            flex-direction: column !important;
+            cursor: pointer !important;
+            gap: 4px !important;
+            z-index: 9999 !important;
+            padding: 20px !important;
+            background: #ff0000 !important;
+            border-radius: 10px !important;
+            border: 5px solid #ffffff !important;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.8) !important;
+            position: fixed !important;
+            top: 10px !important;
+            right: 10px !important;
+            width: 60px !important;
+            height: 60px !important;
+            justify-content: center !important;
+            align-items: center !important;
+        }
+
+        .bar {
+            width: 30px !important;
+            height: 4px !important;
+            background: #ffffff !important;
+            display: block !important;
+            border-radius: 2px !important;
+        }
+
         /* Mobile Navigation */
         @media (max-width: 768px) {
             body {
