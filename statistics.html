@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistics & League Table | Olympique Ouezzane</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            min-height: 100vh;
+            padding: 2rem 0;
+        }
+
+        .statistics-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--text-light);
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .back-btn {
+            background: var(--gradient-primary);
+            color: white;
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+            border: none;
+            cursor: pointer;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(26, 77, 58, 0.3);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .stats-card {
+            background: rgba(30, 41, 59, 0.9);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(26, 77, 58, 0.2);
+            backdrop-filter: blur(20px);
+        }
+
+        .stats-card h2 {
+            color: var(--text-light);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .player-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .player-card {
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid rgba(26, 77, 58, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .player-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-green);
+        }
+
+        .player-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .player-points {
+            font-size: 2rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .player-ranking {
+            background: var(--accent-green);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .player-ranking.first {
+            background: #ffd700;
+            color: #000;
+        }
+
+        .player-ranking.second {
+            background: #c0c0c0;
+            color: #000;
+        }
+
+        .player-ranking.third {
+            background: #cd7f32;
+            color: white;
+        }
+
+        .league-table {
+            background: rgba(30, 41, 59, 0.9);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(26, 77, 58, 0.2);
+            backdrop-filter: blur(20px);
+            margin-bottom: 2rem;
+        }
+
+        .league-table h2 {
+            color: var(--text-light);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .table-header {
+            display: grid;
+            grid-template-columns: 60px 50px 1fr 50px 50px 50px 50px 60px 60px;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            background: rgba(26, 77, 58, 0.3);
+            border-radius: 10px;
+            font-weight: 600;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            align-items: center;
+        }
+
+        .table-row {
+            display: grid;
+            grid-template-columns: 60px 50px 1fr 50px 50px 50px 50px 60px 60px;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 10px;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+            transition: all 0.3s ease;
+            align-items: center;
+        }
+
+        .table-row:hover {
+            background: rgba(26, 77, 58, 0.2);
+            transform: translateX(5px);
+        }
+
+        .table-row.our-team {
+            background: rgba(26, 77, 58, 0.4);
+            border: 2px solid var(--accent-green);
+        }
+
+        .team-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .team-logo {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .team-name {
+            font-weight: 500;
+        }
+
+        .position {
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .position.top3 {
+            color: #ffd700;
+        }
+
+        .position.our-position {
+            color: var(--accent-green);
+        }
+
+        .team-performance {
+            background: rgba(30, 41, 59, 0.9);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(26, 77, 58, 0.2);
+            backdrop-filter: blur(20px);
+            margin-bottom: 2rem;
+        }
+
+        .performance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .performance-stat {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 15px;
+            border: 1px solid rgba(26, 77, 58, 0.3);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: block;
+        }
+
+        .stat-label {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-top: 0.5rem;
+        }
+
+        .chart-container {
+            height: 300px;
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 15px;
+            padding: 1rem;
+            margin-top: 2rem;
+        }
+
+        .form-guide {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            justify-content: center;
+        }
+
+        .form-result {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: white;
+        }
+
+        .form-result.win {
+            background: #10b981;
+        }
+
+        .form-result.draw {
+            background: #f59e0b;
+        }
+
+        .form-result.loss {
+            background: #ef4444;
+        }
+
+        .refresh-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(26, 77, 58, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .refresh-btn:hover {
+            transform: scale(1.1) rotate(180deg);
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .table-header,
+            .table-row {
+                grid-template-columns: 40px 40px 1fr 40px 40px 40px 40px 50px 50px;
+                gap: 0.5rem;
+                padding: 0.75rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .team-logo {
+                width: 25px;
+                height: 25px;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="statistics-container">
+        <div style="display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap;">
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </a>
+            <a href="league-table.html" class="back-btn" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                <i class="fas fa-table"></i> League Table
+            </a>
+        </div>
+
+        <div class="page-header">
+            <h1><i class="fas fa-chart-line"></i> Statistics & League Table</h1>
+            <p>Live player stats and league standings updated from admin dashboard</p>
+        </div>
+
+        <div class="stats-grid">
+            <!-- Player Statistics -->
+            <div class="stats-card">
+                <h2><i class="fas fa-users"></i> Player Statistics</h2>
+                <div class="player-stats-grid" id="playerStatsGrid">
+                    <!-- Player cards will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Team Performance -->
+            <div class="stats-card">
+                <h2><i class="fas fa-trophy"></i> Team Performance</h2>
+                <div class="performance-grid" id="teamPerformanceGrid">
+                    <!-- Performance stats will be populated by JavaScript -->
+                </div>
+                <div class="form-guide" id="formGuide">
+                    <!-- Recent form will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- League Table -->
+        <div class="league-table">
+            <h2><i class="fas fa-table"></i> League Table</h2>
+            <div class="table-header">
+                <span class="position">Pos</span>
+                <span></span>
+                <span class="team-name">Team</span>
+                <span>P</span>
+                <span>W</span>
+                <span>D</span>
+                <span>L</span>
+                <span>Pts</span>
+                <span>Avg</span>
+            </div>
+            <div id="leagueTableBody">
+                <!-- League table rows will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Team Performance Chart -->
+        <div class="team-performance">
+            <h2><i class="fas fa-chart-area"></i> Performance Trends</h2>
+            <div class="chart-container">
+                <canvas id="performanceChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <button class="refresh-btn" onclick="refreshAllData()" title="Refresh Data">
+        <i class="fas fa-sync-alt"></i>
+    </button>
+
+    <script src="database.js"></script>
+    <script>
+        // Team data with logos
+        const teamsData = {
+            'Olympique Ouezzane': {
+                logo: 'img/joo.png',
+                fullName: 'Olympique Ouezzane'
+            },
+            'Racing': {
+                logo: 'img/racing logo.png',
+                fullName: 'Racing Club'
+            },
+            'Dinamo Zagreb': {
+                logo: 'img/dynamo zagreb.png',
+                fullName: 'GNK Dinamo Zagreb'
+            },
+            'Middlesbrough': {
+                logo: 'img/Middlesbrough.png',
+                fullName: 'Middlesbrough FC'
+            },
+            'Real Betis': {
+                logo: 'img/real betis.png',
+                fullName: 'Real Betis Balompié'
+            },
+            'Corinthians': {
+                logo: 'img/corinthians.png',
+                fullName: 'Sport Club Corinthians'
+            },
+            'Rubin Kazan': {
+                logo: 'img/rubin kazan.png',
+                fullName: 'FC Rubin Kazan'
+            },
+            'Le Havre': {
+                logo: 'img/le havre.png',
+                fullName: 'Le Havre AC'
+            },
+            'AS FAR': {
+                logo: 'img/as far.png',
+                fullName: 'AS FAR Rabat'
+            },
+            'LOSC Lille': {
+                logo: 'img/losc lille.png',
+                fullName: 'LOSC Lille'
+            },
+            'Queens Park Rangers': {
+                logo: 'img/queens park rangers.png',
+                fullName: 'Queens Park Rangers FC'
+            },
+            'CR Bernoussi': {
+                logo: 'img/cr bernoussi.png',
+                fullName: 'CR Bernoussi'
+            }
+        };
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadPlayerStats();
+            loadTeamPerformance();
+            loadLeagueTable();
+            loadPerformanceChart();
+        });
+
+        function loadPlayerStats() {
+            const players = db.getPlayers();
+            const playerStatsGrid = document.getElementById('playerStatsGrid');
+            
+            playerStatsGrid.innerHTML = players.map(player => `
+                <div class="player-card">
+                    <div class="player-name">${player.name}</div>
+                    <div class="player-points">${player.totalPoints || 0}</div>
+                    <div class="player-ranking ${getRankingClass(player.ranking)}">${player.ranking || 'TBD'}</div>
+                </div>
+            `).join('');
+        }
+
+        function getRankingClass(ranking) {
+            switch (ranking) {
+                case '1st': return 'first';
+                case '2nd': return 'second';
+                case '3rd': return 'third';
+                default: return '';
+            }
+        }
+
+        function loadTeamPerformance() {
+            const stats = db.getTeamStats();
+            const trends = db.getPerformanceTrends();
+            const performanceGrid = document.getElementById('teamPerformanceGrid');
+            const formGuide = document.getElementById('formGuide');
+            
+            performanceGrid.innerHTML = `
+                <div class="performance-stat">
+                    <span class="stat-value">${stats.matchesPlayed}</span>
+                    <div class="stat-label">Matches Played</div>
+                </div>
+                <div class="performance-stat">
+                    <span class="stat-value">${stats.wins}</span>
+                    <div class="stat-label">Wins</div>
+                </div>
+                <div class="performance-stat">
+                    <span class="stat-value">${stats.draws}</span>
+                    <div class="stat-label">Draws</div>
+                </div>
+                <div class="performance-stat">
+                    <span class="stat-value">${stats.losses}</span>
+                    <div class="stat-label">Losses</div>
+                </div>
+                <div class="performance-stat">
+                    <span class="stat-value">${stats.averageScore}</span>
+                    <div class="stat-label">Average Score</div>
+                </div>
+                <div class="performance-stat">
+                    <span class="stat-value">${stats.winRate}%</span>
+                    <div class="stat-label">Win Rate</div>
+                </div>
+            `;
+
+            // Recent form
+            formGuide.innerHTML = trends.recentForm.map(result => `
+                <div class="form-result ${result.toLowerCase()}">${result[0]}</div>
+            `).join('');
+        }
+
+        function loadLeagueTable() {
+            const results = db.getResults(); // Use the actual database results
+            const leagueResults = JSON.parse(localStorage.getItem('leagueResults') || '[]'); // Get league management results
+            const teams = Object.keys(teamsData);
+            
+            // Initialize team stats
+            const teamStats = {};
+            teams.forEach(team => {
+                teamStats[team] = {
+                    played: 0,
+                    wins: 0,
+                    draws: 0,
+                    losses: 0,
+                    points: 0,
+                    totalScore: 0,
+                    avgScore: 0
+                };
+            });
+
+            // Calculate stats from your team's results
+            results.forEach(result => {
+                const { gameweek, ourScore, opponentScore } = result;
+                
+                // Get opponent from gameweek
+                const opponent = getOpponentFromGameweek(gameweek);
+                if (!opponent || !teamStats[opponent]) return;
+
+                // Update our team stats
+                teamStats['Olympique Ouezzane'].played++;
+                teamStats['Olympique Ouezzane'].totalScore += ourScore;
+                
+                if (ourScore > opponentScore) {
+                    teamStats['Olympique Ouezzane'].wins++;
+                    teamStats['Olympique Ouezzane'].points += 3;
+                    teamStats[opponent].losses++;
+                } else if (ourScore === opponentScore) {
+                    teamStats['Olympique Ouezzane'].draws++;
+                    teamStats['Olympique Ouezzane'].points += 1;
+                    teamStats[opponent].draws++;
+                    teamStats[opponent].points += 1;
+                } else {
+                    teamStats['Olympique Ouezzane'].losses++;
+                    teamStats[opponent].wins++;
+                    teamStats[opponent].points += 3;
+                }
+
+                // Update opponent stats
+                teamStats[opponent].played++;
+                teamStats[opponent].totalScore += opponentScore;
+            });
+
+            // Process league management results (matches between all teams)
+            leagueResults.forEach(result => {
+                const { team1, team1Score, team2, team2Score } = result;
+                
+                if (teamStats[team1] && teamStats[team2]) {
+                    // Update team1 stats
+                    teamStats[team1].played++;
+                    teamStats[team1].totalScore += team1Score;
+                    
+                    // Update team2 stats
+                    teamStats[team2].played++;
+                    teamStats[team2].totalScore += team2Score;
+                    
+                    if (team1Score > team2Score) {
+                        teamStats[team1].wins++;
+                        teamStats[team1].points += 3;
+                        teamStats[team2].losses++;
+                    } else if (team1Score === team2Score) {
+                        teamStats[team1].draws++;
+                        teamStats[team1].points += 1;
+                        teamStats[team2].draws++;
+                        teamStats[team2].points += 1;
+                    } else {
+                        teamStats[team1].losses++;
+                        teamStats[team2].wins++;
+                        teamStats[team2].points += 3;
+                    }
+                }
+            });
+
+            // Calculate average scores
+            Object.keys(teamStats).forEach(team => {
+                const stats = teamStats[team];
+                stats.avgScore = stats.played > 0 ? Math.round(stats.totalScore / stats.played) : 0;
+            });
+
+            // Sort teams by points, then alphabetically if points are equal
+            const sortedTeams = teams.sort((a, b) => {
+                if (teamStats[b].points !== teamStats[a].points) {
+                    return teamStats[b].points - teamStats[a].points;
+                }
+                // If points are equal (like when season hasn't started), sort alphabetically
+                return a.localeCompare(b);
+            });
+
+            // Generate table HTML
+            const tableHTML = sortedTeams.map((team, index) => {
+                const stats = teamStats[team];
+                const isOurTeam = team === 'Olympique Ouezzane';
+                const teamData = teamsData[team];
+                
+                return `
+                    <div class="table-row ${isOurTeam ? 'our-team' : ''}">
+                        <span class="position ${index < 3 ? 'top3' : ''} ${isOurTeam ? 'our-position' : ''}">${index + 1}</span>
+                        <img src="${teamData.logo}" alt="${team}" class="team-logo" onerror="this.style.display='none'">
+                        <div class="team-info">
+                            <span class="team-name">${teamData.fullName}</span>
+                        </div>
+                        <span>${stats.played}</span>
+                        <span>${stats.wins}</span>
+                        <span>${stats.draws}</span>
+                        <span>${stats.losses}</span>
+                        <span style="font-weight: 700; color: var(--accent-green);">${stats.points}</span>
+                        <span>${stats.avgScore}</span>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('leagueTableBody').innerHTML = tableHTML;
+        }
+
+        function getOpponentFromGameweek(gameweek) {
+            const opponents = {
+                1: 'Racing', 2: 'Dinamo Zagreb', 3: 'Middlesbrough', 4: 'Real Betis',
+                5: 'Corinthians', 6: 'Rubin Kazan', 7: 'Le Havre', 8: 'AS FAR',
+                9: 'LOSC Lille', 10: 'Queens Park Rangers', 11: 'CR Bernoussi',
+                12: 'Racing', 13: 'Dinamo Zagreb', 14: 'Middlesbrough', 15: 'Real Betis',
+                16: 'Corinthians', 17: 'Rubin Kazan', 18: 'Le Havre', 19: 'AS FAR',
+                20: 'LOSC Lille', 21: 'Queens Park Rangers', 22: 'CR Bernoussi'
+            };
+            return opponents[gameweek];
+        }
+
+        function loadPerformanceChart() {
+            const results = db.getResults();
+            const ctx = document.getElementById('performanceChart').getContext('2d');
+            
+            // Prepare data for chart
+            const labels = results.map((_, index) => `GW ${index + 1}`);
+            const teamScores = results.map(r => r.ourScore);
+            const opponentScores = results.map(r => r.opponentScore);
+            
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Our Score',
+                        data: teamScores,
+                        borderColor: '#1a4d3a',
+                        backgroundColor: 'rgba(26, 77, 58, 0.1)',
+                        tension: 0.4
+                    }, {
+                        label: 'Opponent Score',
+                        data: opponentScores,
+                        borderColor: '#ef4444',
+                        backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#e2e8f0'
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            ticks: {
+                                color: '#94a3b8'
+                            },
+                            grid: {
+                                color: 'rgba(148, 163, 184, 0.1)'
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                color: '#94a3b8'
+                            },
+                            grid: {
+                                color: 'rgba(148, 163, 184, 0.1)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function refreshAllData() {
+            const btn = document.querySelector('.refresh-btn');
+            btn.style.transform = 'scale(1.1) rotate(360deg)';
+            
+            setTimeout(() => {
+                loadPlayerStats();
+                loadTeamPerformance();
+                loadLeagueTable();
+                loadPerformanceChart();
+                btn.style.transform = 'scale(1)';
+            }, 500);
+        }
+
+        // Auto-refresh every 30 seconds
+        setInterval(refreshAllData, 30000);
+    </script>
+</body>
+</html>

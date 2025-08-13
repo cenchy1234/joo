@@ -5,8 +5,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Update Match Results | Olympique Ouezzane</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?fa        .action-btn:hover {
+            background: rgba(26, 77, 58, 0.8);
+            transform: translateY(-2px);
+        }
+
+        .league-form-section {
+            background: rgba(15, 23, 42, 0.8);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(26, 77, 58, 0.3);
+        }
+
+        .league-results-list {
+            background: rgba(15, 23, 42, 0.8);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(26, 77, 58, 0.3);
+        }
+
+        .league-results-list h3 {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .league-match-item {
+            background: rgba(30, 41, 59, 0.8);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(26, 77, 58, 0.2);
+        }
+
+        .league-match-item:hover {
+            background: rgba(26, 77, 58, 0.2);
+        }
+
+        .match-info {
+            color: var(--text-light);
+        }
+
+        .match-score {
+            font-weight: 700;
+            color: var(--accent-green);
+        }
+
+        .delete-match-btn {
+            background: var(--accent-red);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .delete-match-btn:hover {
+            background: #b91c1c;
+        }=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         body {
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
@@ -199,6 +261,125 @@
             transform: scale(1.05);
             box-shadow: 0 4px 10px rgba(220, 38, 38, 0.3);
         }
+
+        /* League Management Styles */
+        .league-management {
+            margin-top: 3rem;
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(26, 77, 58, 0.2);
+        }
+
+        .league-management h3 {
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .league-management p {
+            color: var(--text-gray);
+            margin-bottom: 2rem;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(26, 77, 58, 0.2);
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-gray);
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+            font-weight: 500;
+        }
+
+        .tab-btn.active {
+            color: var(--accent-color);
+            border-bottom-color: var(--accent-color);
+        }
+
+        .tab-btn:hover {
+            color: var(--text-light);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .vs-indicator {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin: 1rem 0;
+            background: rgba(26, 77, 58, 0.2);
+            padding: 0.5rem;
+            border-radius: 8px;
+        }
+
+        .league-table-admin {
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .league-table-admin .table-header {
+            background: var(--gradient-primary);
+            display: grid;
+            grid-template-columns: 50px 2fr 50px 50px 50px 50px 70px 70px;
+            padding: 1rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        .league-table-admin .table-row {
+            display: grid;
+            grid-template-columns: 50px 2fr 50px 50px 50px 50px 70px 70px;
+            padding: 1rem;
+            border-bottom: 1px solid rgba(26, 77, 58, 0.2);
+            align-items: center;
+        }
+
+        .league-table-admin .table-row:hover {
+            background: rgba(26, 77, 58, 0.1);
+        }
+
+        .admin-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .action-btn {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(26, 77, 58, 0.3);
+            color: var(--text-light);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .action-btn:hover {
+            background: rgba(26, 77, 58, 0.3);
+            transform: translateY(-2px);
+        }
         
         @media (max-width: 768px) {
             .admin-container {
@@ -215,23 +396,62 @@
                 align-items: flex-start;
                 gap: 1rem;
             }
+
+            .tabs {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .league-table-admin .table-header,
+            .league-table-admin .table-row {
+                grid-template-columns: 40px 1fr 40px 40px 40px 40px 50px 50px;
+                font-size: 0.9rem;
+            }
+
+            .admin-actions {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
 <body>
     <div class="admin-container">
-        <a href="index.html" class="back-btn">
-            <i class="fas fa-arrow-left"></i> Back to Website
-        </a>
+        <div style="display: flex; gap: 1rem; margin-bottom: 2rem;">
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Website
+            </a>
+            <a href="statistics.html" class="back-btn" style="background: var(--gradient-accent);">
+                <i class="fas fa-chart-line"></i> View Statistics
+            </a>
+            <a href="league-table.html" class="back-btn" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                <i class="fas fa-table"></i> League Table
+            </a>
+        </div>
         
         <div class="admin-header">
-            <h1><i class="fas fa-cog"></i> Match Results Admin</h1>
+            <h1><i class="fas fa-cog" style="color: #1a4d3a;"></i> Match Results Admin</h1>
             <p>Enter results after each gameweek to update the website</p>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab('match-results')">
+                <i class="fas fa-futbol"></i> Match Results
+            </button>
+            <button class="tab-btn" onclick="showTab('league-management')">
+                <i class="fas fa-table"></i> League Management
+            </button>
+            <button class="tab-btn" onclick="showTab('overview')">
+                <i class="fas fa-chart-bar"></i> Overview
+            </button>
         </div>
         
         <div class="success-message" id="successMessage">
             Match result updated successfully!
         </div>
+
+        <!-- Match Results Tab -->
+        <div class="tab-content active" id="match-results">
         
         <form id="resultForm">
             <div class="form-row">
@@ -309,6 +529,134 @@
                 <p>No matches completed yet</p>
             </div>
         </div>
+        </div>
+
+        <!-- League Management Tab -->
+        <div class="tab-content" id="league-management">
+            <h3><i class="fas fa-table"></i> League Table Management</h3>
+            <p>Update statistics for all 12 teams in the competition</p>
+            
+            <div class="league-form-section">
+                <form id="teamResultForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="team1">Team 1</label>
+                            <select id="team1" required>
+                                <option value="">Select Team</option>
+                                <option value="Olympique Ouezzane">Olympique Ouezzane</option>
+                                <option value="Racing">Racing</option>
+                                <option value="Real Betis">Real Betis</option>
+                                <option value="Dinamo Zagreb">Dinamo Zagreb</option>
+                                <option value="CR Bernoussi">CR Bernoussi</option>
+                                <option value="Corinthians">Corinthians</option>
+                                <option value="Le Havre">Le Havre</option>
+                                <option value="LOSC Lille">LOSC Lille</option>
+                                <option value="Middlesbrough">Middlesbrough</option>
+                                <option value="Queens Park Rangers">Queens Park Rangers</option>
+                                <option value="Rubin Kazan">Rubin Kazan</option>
+                                <option value="AS FAR">AS FAR</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="team1Score">Team 1 Score</label>
+                            <input type="number" id="team1Score" required min="0" placeholder="0">
+                        </div>
+                    </div>
+                    
+                    <div class="vs-indicator" style="text-align: center; margin: 1rem 0; font-size: 1.5rem; font-weight: bold; color: var(--accent-green);">VS</div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="team2">Team 2</label>
+                            <select id="team2" required>
+                                <option value="">Select Team</option>
+                                <option value="Olympique Ouezzane">Olympique Ouezzane</option>
+                                <option value="Racing">Racing</option>
+                                <option value="Real Betis">Real Betis</option>
+                                <option value="Dinamo Zagreb">Dinamo Zagreb</option>
+                                <option value="CR Bernoussi">CR Bernoussi</option>
+                                <option value="Corinthians">Corinthians</option>
+                                <option value="Le Havre">Le Havre</option>
+                                <option value="LOSC Lille">LOSC Lille</option>
+                                <option value="Middlesbrough">Middlesbrough</option>
+                                <option value="Queens Park Rangers">Queens Park Rangers</option>
+                                <option value="Rubin Kazan">Rubin Kazan</option>
+                                <option value="AS FAR">AS FAR</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="team2Score">Team 2 Score</label>
+                            <input type="number" id="team2Score" required min="0" placeholder="0">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="matchGameweek">Match Gameweek</label>
+                        <select id="matchGameweek" required>
+                            <option value="">Select Gameweek</option>
+                            <option value="1">Gameweek 1</option>
+                            <option value="2">Gameweek 2</option>
+                            <option value="3">Gameweek 3</option>
+                            <option value="4">Gameweek 4</option>
+                            <option value="5">Gameweek 5</option>
+                            <option value="6">Gameweek 6</option>
+                            <option value="7">Gameweek 7</option>
+                            <option value="8">Gameweek 8</option>
+                            <option value="9">Gameweek 9</option>
+                            <option value="10">Gameweek 10</option>
+                            <option value="11">Gameweek 11</option>
+                            <option value="12">Gameweek 12</option>
+                            <option value="13">Gameweek 13</option>
+                            <option value="14">Gameweek 14</option>
+                            <option value="15">Gameweek 15</option>
+                            <option value="16">Gameweek 16</option>
+                            <option value="17">Gameweek 17</option>
+                            <option value="18">Gameweek 18</option>
+                            <option value="19">Gameweek 19</option>
+                            <option value="20">Gameweek 20</option>
+                            <option value="21">Gameweek 21</option>
+                            <option value="22">Gameweek 22</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Add League Match Result</button>
+                </form>
+            </div>
+            
+            <div class="league-results-list">
+                <h3>All League Matches</h3>
+                <div id="leagueResultsList">
+                    <p>No league matches added yet</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Overview Tab -->
+        <div class="tab-content" id="overview">
+                <div class="league-table-admin">
+                    <div class="table-header">
+                        <span class="pos">Pos</span>
+                        <span class="team">Team</span>
+                        <span class="stat">P</span>
+                        <span class="stat">W</span>
+                        <span class="stat">D</span>
+                        <span class="stat">L</span>
+                        <span class="stat">Pts</span>
+                        <span class="stat">Avg</span>
+                    </div>
+                    <div id="adminLeagueTable">
+                        <!-- Table will be populated by JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="admin-actions">
+                    <button class="action-btn" onclick="resetLeague()">Reset League</button>
+                    <button class="action-btn" onclick="exportData()">Export Data</button>
+                </div>
+            </div>
+        </div>
     </div>
     
     <script src="database.js"></script>
@@ -365,6 +713,108 @@
             loadResults();
         });
         
+        // Tab switching functionality
+        function showTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active class from all tab buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+            
+            // Load data for specific tabs
+            if (tabName === 'overview') {
+                loadLeagueOverview();
+            } else if (tabName === 'league-management') {
+                loadLeagueResults();
+            }
+        }
+
+        // Handle league team result form submission
+        document.getElementById('teamResultForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const team1 = document.getElementById('team1').value;
+            const team1Score = parseInt(document.getElementById('team1Score').value);
+            const team2 = document.getElementById('team2').value;
+            const team2Score = parseInt(document.getElementById('team2Score').value);
+            const gameweek = document.getElementById('matchGameweek').value;
+            
+            if (team1 === team2) {
+                alert('Please select different teams');
+                return;
+            }
+            
+            // Store league result
+            const leagueResult = {
+                id: Date.now(), // Unique ID for deletion
+                gameweek: parseInt(gameweek),
+                team1: team1,
+                team1Score: team1Score,
+                team2: team2,
+                team2Score: team2Score,
+                result: team1Score > team2Score ? 'team1_win' : team2Score > team1Score ? 'team2_win' : 'draw',
+                date: new Date().toISOString()
+            };
+            
+            // Store in localStorage
+            let leagueResults = JSON.parse(localStorage.getItem('leagueResults') || '[]');
+            leagueResults.push(leagueResult);
+            localStorage.setItem('leagueResults', JSON.stringify(leagueResults));
+            
+            // Show success message
+            alert(`Match result added: ${team1} ${team1Score} - ${team2Score} ${team2}`);
+            
+            // Reset form
+            this.reset();
+            
+            // Refresh league results list
+            loadLeagueResults();
+        });
+
+        // Load and display league results
+        function loadLeagueResults() {
+            const leagueResults = JSON.parse(localStorage.getItem('leagueResults') || '[]');
+            const resultsList = document.getElementById('leagueResultsList');
+            
+            if (leagueResults.length === 0) {
+                resultsList.innerHTML = '<p>No league matches added yet</p>';
+                return;
+            }
+            
+            resultsList.innerHTML = leagueResults.map(result => `
+                <div class="league-match-item">
+                    <div class="match-info">
+                        <strong>GW ${result.gameweek}</strong> - ${result.team1} vs ${result.team2}
+                        <br>
+                        <small>${new Date(result.date).toLocaleDateString()}</small>
+                    </div>
+                    <div class="match-score">${result.team1Score} - ${result.team2Score}</div>
+                    <button class="delete-match-btn" onclick="deleteLeagueMatch(${result.id})">Delete</button>
+                </div>
+            `).join('');
+        }
+
+        // Delete a league match
+        function deleteLeagueMatch(matchId) {
+            if (confirm('Delete this league match?')) {
+                let leagueResults = JSON.parse(localStorage.getItem('leagueResults') || '[]');
+                leagueResults = leagueResults.filter(result => result.id !== matchId);
+                localStorage.setItem('leagueResults', JSON.stringify(leagueResults));
+                loadLeagueResults();
+                alert('League match deleted successfully');
+            }
+        }
+        
         // Load and display existing results
         function loadResults() {
             const results = db.getResults();
@@ -404,9 +854,190 @@
                 loadResults();
             }
         }
+
+        // League Management Functions
+        function showTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remove active class from all tab buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+            
+            if (tabName === 'league-overview') {
+                loadLeagueOverview();
+            }
+        }
+
+        // Handle team result form submission
+        document.getElementById('teamResultForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const team1 = document.getElementById('team1').value;
+            const team1Score = parseInt(document.getElementById('team1Score').value);
+            const team2 = document.getElementById('team2').value;
+            const team2Score = parseInt(document.getElementById('team2Score').value);
+            const gameweek = document.getElementById('matchGameweek').value;
+            
+            if (team1 === team2) {
+                alert('Please select different teams');
+                return;
+            }
+            
+            // Store league result
+            const leagueResult = {
+                id: Date.now(), // Unique ID for deletion
+                gameweek: parseInt(gameweek),
+                team1: team1,
+                team1Score: team1Score,
+                team2: team2,
+                team2Score: team2Score,
+                result: team1Score > team2Score ? 'team1_win' : team2Score > team1Score ? 'team2_win' : 'draw',
+                date: new Date().toISOString()
+            };
+            
+            // Store in localStorage
+            let leagueResults = JSON.parse(localStorage.getItem('leagueResults') || '[]');
+            leagueResults.push(leagueResult);
+            localStorage.setItem('leagueResults', JSON.stringify(leagueResults));
+            
+            // Show success message
+            alert(`Match result added: ${team1} ${team1Score} - ${team2Score} ${team2}`);
+            
+            // Reset form
+            this.reset();
+            
+            // Refresh league results list and overview
+            loadLeagueResults();
+            loadLeagueOverview();
+        });
+
+        // Load league overview
+        function loadLeagueOverview() {
+            const leagueResults = JSON.parse(localStorage.getItem('leagueResults') || '[]');
+            
+            // Define all teams
+            const teams = [
+                'Olympique Ouezzane', 'Racing', 'Real Betis', 'Dinamo Zagreb',
+                'CR Bernoussi', 'Corinthians', 'Le Havre', 'LOSC Lille',
+                'Middlesbrough', 'Queens Park Rangers', 'Rubin Kazan', 'AS FAR'
+            ];
+            
+            // Calculate stats for each team
+            const teamStats = {};
+            teams.forEach(team => {
+                teamStats[team] = {
+                    played: 0,
+                    wins: 0,
+                    draws: 0,
+                    losses: 0,
+                    points: 0,
+                    totalScore: 0,
+                    avgScore: 0
+                };
+            });
+            
+            // Process results
+            leagueResults.forEach(result => {
+                const { team1, team1Score, team2, team2Score } = result;
+                
+                // Update games played
+                teamStats[team1].played++;
+                teamStats[team2].played++;
+                
+                // Update scores
+                teamStats[team1].totalScore += team1Score;
+                teamStats[team2].totalScore += team2Score;
+                
+                // Update results
+                if (team1Score > team2Score) {
+                    teamStats[team1].wins++;
+                    teamStats[team1].points += 3;
+                    teamStats[team2].losses++;
+                } else if (team2Score > team1Score) {
+                    teamStats[team2].wins++;
+                    teamStats[team2].points += 3;
+                    teamStats[team1].losses++;
+                } else {
+                    teamStats[team1].draws++;
+                    teamStats[team2].draws++;
+                    teamStats[team1].points += 1;
+                    teamStats[team2].points += 1;
+                }
+            });
+            
+            // Calculate average scores
+            Object.keys(teamStats).forEach(team => {
+                const stats = teamStats[team];
+                stats.avgScore = stats.played > 0 ? Math.round(stats.totalScore / stats.played) : 0;
+            });
+            
+            // Sort teams by points, then by average score
+            const sortedTeams = teams.sort((a, b) => {
+                if (teamStats[b].points !== teamStats[a].points) {
+                    return teamStats[b].points - teamStats[a].points;
+                }
+                return teamStats[b].avgScore - teamStats[a].avgScore;
+            });
+            
+            // Generate table HTML
+            const tableHTML = sortedTeams.map((team, index) => {
+                const stats = teamStats[team];
+                return `
+                    <div class="table-row">
+                        <span>${index + 1}</span>
+                        <span>${team}</span>
+                        <span>${stats.played}</span>
+                        <span>${stats.wins}</span>
+                        <span>${stats.draws}</span>
+                        <span>${stats.losses}</span>
+                        <span>${stats.points}</span>
+                        <span>${stats.avgScore}</span>
+                    </div>
+                `;
+            }).join('');
+            
+            document.getElementById('adminLeagueTable').innerHTML = tableHTML;
+        }
+
+        // Reset league
+        function resetLeague() {
+            if (confirm('Are you sure you want to reset all league data? This cannot be undone.')) {
+                localStorage.removeItem('leagueResults');
+                loadLeagueOverview();
+                alert('League data has been reset.');
+            }
+        }
+
+        // Export data
+        function exportData() {
+            const leagueResults = JSON.parse(localStorage.getItem('leagueResults') || '[]');
+            const dataStr = JSON.stringify(leagueResults, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = 'league_data.json';
+            link.click();
+        }
         
         // Load results on page load
         loadResults();
+        
+        // Load league results on page load
+        loadLeagueResults();
+        
+        // Load league overview on page load
+        loadLeagueOverview();
     </script>
 </body>
 </html>

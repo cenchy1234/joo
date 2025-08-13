@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>League Table | Olympique Ouezzane</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            min-height: 100vh;
+            padding: 2rem 0;
+        }
+
+        .league-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--text-light);
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .back-btn {
+            background: var(--gradient-primary);
+            color: white;
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+            border: none;
+            cursor: pointer;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(26, 77, 58, 0.3);
+        }
+
+        .league-table {
+            background: rgba(30, 41, 59, 0.9);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(26, 77, 58, 0.2);
+            backdrop-filter: blur(20px);
+            margin-bottom: 2rem;
+        }
+
+        .league-table h2 {
+            color: var(--text-light);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .table-header {
+            display: grid;
+            grid-template-columns: 60px 50px 1fr 50px 50px 50px 50px 60px 60px 80px;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            background: rgba(26, 77, 58, 0.3);
+            border-radius: 10px;
+            font-weight: 600;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            align-items: center;
+        }
+
+        .table-row {
+            display: grid;
+            grid-template-columns: 60px 50px 1fr 50px 50px 50px 50px 60px 60px 80px;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 10px;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+            transition: all 0.3s ease;
+            align-items: center;
+        }
+
+        .table-row:hover {
+            background: rgba(26, 77, 58, 0.2);
+            transform: translateX(5px);
+        }
+
+        .table-row.our-team {
+            background: rgba(26, 77, 58, 0.4);
+            border: 2px solid var(--accent-green);
+        }
+
+        .team-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .team-logo {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(26, 77, 58, 0.3);
+        }
+
+        .team-name {
+            font-weight: 500;
+        }
+
+        .position {
+            font-weight: 700;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .position.our-position {
+            color: var(--accent-green);
+        }
+
+        .points-column {
+            font-weight: 700;
+            color: var(--accent-green);
+            text-align: center;
+        }
+
+        .season-info {
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            border: 1px solid rgba(26, 77, 58, 0.3);
+        }
+
+        .season-info h3 {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .season-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .season-stat {
+            background: rgba(30, 41, 59, 0.8);
+            padding: 1rem;
+            border-radius: 10px;
+            border: 1px solid rgba(26, 77, 58, 0.2);
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-green);
+        }
+
+        .stat-label {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            margin-top: 0.25rem;
+        }
+
+        .refresh-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(26, 77, 58, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .refresh-btn:hover {
+            transform: scale(1.1) rotate(180deg);
+        }
+
+        @media (max-width: 768px) {
+            .table-header,
+            .table-row {
+                grid-template-columns: 40px 40px 1fr 35px 35px 35px 35px 45px 45px 55px;
+                gap: 0.5rem;
+                padding: 0.75rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .team-logo {
+                width: 25px;
+                height: 25px;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .season-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="league-container">
+        <div style="display: flex; gap: 1rem; margin-bottom: 2rem;">
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </a>
+            <a href="statistics.html" class="back-btn" style="background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);">
+                <i class="fas fa-chart-line"></i> Full Statistics
+            </a>
+        </div>
+
+        <div class="page-header">
+            <h1><i class="fas fa-table"></i> League Table</h1>
+            <p>Complete standings for all teams - Season not started yet</p>
+        </div>
+
+        <!-- Season Information -->
+        <div class="season-info">
+            <h3><i class="fas fa-calendar-alt"></i> Season Information</h3>
+            <p>22 Gameweeks • 12 Teams • Season starts soon</p>
+            <div class="season-stats">
+                <div class="season-stat">
+                    <div class="stat-value">0</div>
+                    <div class="stat-label">Matches Played</div>
+                </div>
+                <div class="season-stat">
+                    <div class="stat-value">22</div>
+                    <div class="stat-label">Total Gameweeks</div>
+                </div>
+                <div class="season-stat">
+                    <div class="stat-value">12</div>
+                    <div class="stat-label">Teams</div>
+                </div>
+                <div class="season-stat">
+                    <div class="stat-value">132</div>
+                    <div class="stat-label">Total Matches</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- League Table -->
+        <div class="league-table">
+            <h2><i class="fas fa-trophy"></i> Current Standings</h2>
+            <div class="table-header">
+                <span class="position">Pos</span>
+                <span></span>
+                <span class="team-name">Team</span>
+                <span>P</span>
+                <span>W</span>
+                <span>D</span>
+                <span>L</span>
+                <span>GF</span>
+                <span>GA</span>
+                <span>Pts</span>
+            </div>
+            <div id="leagueTableBody">
+                <!-- League table rows will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <button class="refresh-btn" onclick="refreshTable()" title="Refresh Table">
+        <i class="fas fa-sync-alt"></i>
+    </button>
+
+    <script src="database.js"></script>
+    <script>
+        // Team data with logos and full names
+        const teamsData = {
+            'Olympique Ouezzane': {
+                logo: 'img/joo.png',
+                fullName: 'Olympique Ouezzane'
+            },
+            'Racing': {
+                logo: 'img/racing logo.png',
+                fullName: 'Racing Club'
+            },
+            'Dinamo Zagreb': {
+                logo: 'img/dynamo zagreb.png',
+                fullName: 'GNK Dinamo Zagreb'
+            },
+            'Middlesbrough': {
+                logo: 'img/Middlesbrough.png',
+                fullName: 'Middlesbrough FC'
+            },
+            'Real Betis': {
+                logo: 'img/real betis.png',
+                fullName: 'Real Betis Balompié'
+            },
+            'Corinthians': {
+                logo: 'img/corinthians.png',
+                fullName: 'Sport Club Corinthians'
+            },
+            'Rubin Kazan': {
+                logo: 'img/rubin kazan.png',
+                fullName: 'FC Rubin Kazan'
+            },
+            'Le Havre': {
+                logo: 'img/le havre.png',
+                fullName: 'Le Havre AC'
+            },
+            'AS FAR': {
+                logo: 'img/as far.png',
+                fullName: 'AS FAR Rabat'
+            },
+            'LOSC Lille': {
+                logo: 'img/losc lille.png',
+                fullName: 'LOSC Lille'
+            },
+            'Queens Park Rangers': {
+                logo: 'img/queens park rangers.png',
+                fullName: 'Queens Park Rangers FC'
+            },
+            'CR Bernoussi': {
+                logo: 'img/cr bernoussi.png',
+                fullName: 'CR Bernoussi'
+            }
+        };
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadLeagueTable();
+            updateSeasonInfo();
+        });
+
+        function updateSeasonInfo() {
+            const results = db.getResults();
+            const leagueResults = JSON.parse(localStorage.getItem('leagueResults') || '[]');
+            const totalMatches = results.length + leagueResults.length;
+            
+            // Update season stats
+            document.querySelector('.season-stat .stat-value').textContent = totalMatches;
+            
+            // Update season status
+            const seasonStatus = document.querySelector('.page-header p');
+            if (totalMatches > 0) {
+                seasonStatus.textContent = `Complete standings for all teams - ${totalMatches} matches played`;
+            } else {
+                seasonStatus.textContent = 'Complete standings for all teams - Season not started yet';
+            }
+        }
+
+        function loadLeagueTable() {
+            const results = db.getResults(); // Get actual results from database
+            const leagueResults = JSON.parse(localStorage.getItem('leagueResults') || '[]'); // Get league management results
+            const teams = Object.keys(teamsData);
+            
+            // Initialize all teams with 0 stats
+            const teamStats = {};
+            teams.forEach(team => {
+                teamStats[team] = {
+                    played: 0,
+                    wins: 0,
+                    draws: 0,
+                    losses: 0,
+                    points: 0,
+                    goalsFor: 0,
+                    goalsAgainst: 0
+                };
+            });
+
+            // Process your team's actual results
+            results.forEach(result => {
+                const { gameweek, ourScore, opponentScore } = result;
+                
+                // Get opponent from gameweek
+                const opponent = getOpponentFromGameweek(gameweek);
+                if (!opponent || !teamStats[opponent]) return;
+
+                // Update our team stats
+                teamStats['Olympique Ouezzane'].played++;
+                teamStats['Olympique Ouezzane'].goalsFor += ourScore;
+                teamStats['Olympique Ouezzane'].goalsAgainst += opponentScore;
+                
+                if (ourScore > opponentScore) {
+                    teamStats['Olympique Ouezzane'].wins++;
+                    teamStats['Olympique Ouezzane'].points += 3;
+                    teamStats[opponent].losses++;
+                } else if (ourScore === opponentScore) {
+                    teamStats['Olympique Ouezzane'].draws++;
+                    teamStats['Olympique Ouezzane'].points += 1;
+                    teamStats[opponent].draws++;
+                    teamStats[opponent].points += 1;
+                } else {
+                    teamStats['Olympique Ouezzane'].losses++;
+                    teamStats[opponent].wins++;
+                    teamStats[opponent].points += 3;
+                }
+
+                // Update opponent stats
+                teamStats[opponent].played++;
+                teamStats[opponent].goalsFor += opponentScore;
+                teamStats[opponent].goalsAgainst += ourScore;
+            });
+
+            // Process league management results (matches between all teams)
+            leagueResults.forEach(result => {
+                const { team1, team1Score, team2, team2Score } = result;
+                
+                if (teamStats[team1] && teamStats[team2]) {
+                    // Update team1 stats
+                    teamStats[team1].played++;
+                    teamStats[team1].goalsFor += team1Score;
+                    teamStats[team1].goalsAgainst += team2Score;
+                    
+                    // Update team2 stats
+                    teamStats[team2].played++;
+                    teamStats[team2].goalsFor += team2Score;
+                    teamStats[team2].goalsAgainst += team1Score;
+                    
+                    if (team1Score > team2Score) {
+                        teamStats[team1].wins++;
+                        teamStats[team1].points += 3;
+                        teamStats[team2].losses++;
+                    } else if (team1Score === team2Score) {
+                        teamStats[team1].draws++;
+                        teamStats[team1].points += 1;
+                        teamStats[team2].draws++;
+                        teamStats[team2].points += 1;
+                    } else {
+                        teamStats[team1].losses++;
+                        teamStats[team2].wins++;
+                        teamStats[team2].points += 3;
+                    }
+                }
+            });
+
+            // Sort teams by points, then by goal difference, then alphabetically
+            const sortedTeams = teams.sort((a, b) => {
+                const aStats = teamStats[a];
+                const bStats = teamStats[b];
+                
+                // First by points
+                if (bStats.points !== aStats.points) {
+                    return bStats.points - aStats.points;
+                }
+                
+                // Then by goal difference
+                const aGD = aStats.goalsFor - aStats.goalsAgainst;
+                const bGD = bStats.goalsFor - bStats.goalsAgainst;
+                if (bGD !== aGD) {
+                    return bGD - aGD;
+                }
+                
+                // Then by goals scored
+                if (bStats.goalsFor !== aStats.goalsFor) {
+                    return bStats.goalsFor - aStats.goalsFor;
+                }
+                
+                // Finally alphabetically
+                return a.localeCompare(b);
+            });
+
+            // Generate table HTML
+            const tableHTML = sortedTeams.map((team, index) => {
+                const stats = teamStats[team];
+                const isOurTeam = team === 'Olympique Ouezzane';
+                const teamData = teamsData[team];
+                
+                return `
+                    <div class="table-row ${isOurTeam ? 'our-team' : ''}">
+                        <span class="position ${isOurTeam ? 'our-position' : ''}">${index + 1}</span>
+                        <img src="${teamData.logo}" alt="${team}" class="team-logo" onerror="this.style.display='none'">
+                        <div class="team-info">
+                            <span class="team-name">${teamData.fullName}</span>
+                        </div>
+                        <span>${stats.played}</span>
+                        <span>${stats.wins}</span>
+                        <span>${stats.draws}</span>
+                        <span>${stats.losses}</span>
+                        <span>${stats.goalsFor}</span>
+                        <span>${stats.goalsAgainst}</span>
+                        <span class="points-column">${stats.points}</span>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('leagueTableBody').innerHTML = tableHTML;
+        }
+
+        function getOpponentFromGameweek(gameweek) {
+            const opponents = {
+                1: 'Racing', 2: 'Dinamo Zagreb', 3: 'Middlesbrough', 4: 'Real Betis',
+                5: 'Corinthians', 6: 'Rubin Kazan', 7: 'Le Havre', 8: 'AS FAR',
+                9: 'LOSC Lille', 10: 'Queens Park Rangers', 11: 'CR Bernoussi',
+                12: 'Racing', 13: 'Dinamo Zagreb', 14: 'Middlesbrough', 15: 'Real Betis',
+                16: 'Corinthians', 17: 'Rubin Kazan', 18: 'Le Havre', 19: 'AS FAR',
+                20: 'LOSC Lille', 21: 'Queens Park Rangers', 22: 'CR Bernoussi'
+            };
+            return opponents[gameweek];
+        }
+
+        function refreshTable() {
+            const btn = document.querySelector('.refresh-btn');
+            btn.style.transform = 'scale(1.1) rotate(360deg)';
+            
+            setTimeout(() => {
+                loadLeagueTable();
+                updateSeasonInfo();
+                btn.style.transform = 'scale(1)';
+            }, 500);
+        }
+
+        // Auto-refresh every 30 seconds
+        setInterval(refreshTable, 30000);
+    </script>
+</body>
+</html>

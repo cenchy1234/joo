@@ -111,12 +111,19 @@ class SimpleDatabase {
     // Get team statistics
     getTeamStats() {
         const results = this.getResults();
+        const players = this.getPlayers();
+        
         const wins = results.filter(r => r.result === 'WIN').length;
         const draws = results.filter(r => r.result === 'DRAW').length;
         const losses = results.filter(r => r.result === 'LOSS').length;
         const totalTeamPoints = results.reduce((sum, r) => sum + r.ourScore, 0);
         const averageScore = results.length > 0 ? (totalTeamPoints / results.length).toFixed(1) : 0;
         const highestScore = results.length > 0 ? Math.max(...results.map(r => r.ourScore)) : 0;
+        
+        // Calculate total player points
+        const totalPlayerPoints = players.reduce((sum, p) => sum + (p.totalPoints || 0), 0);
+        const averagePlayerPoints = players.length > 0 ? Math.round(totalPlayerPoints / players.length) : 0;
+        const winRate = results.length > 0 ? Math.round((wins / results.length) * 100) : 0;
 
         return {
             matchesPlayed: results.length,
@@ -124,8 +131,146 @@ class SimpleDatabase {
             draws,
             losses,
             totalPoints: totalTeamPoints,
+            totalPlayerPoints,
             averageScore: parseFloat(averageScore),
-            highestScore
+            averagePlayerPoints,
+            highestScore,
+            winRate
+        };
+    }
+
+    // Get monthly progress data
+    getMonthlyProgress() {
+        const results = this.getResults();
+        const monthlyData = {};
+        
+        results.forEach(result => {
+            const date = new Date(result.date);
+            const monthKey = date.toLocaleDateString('en-US', { month: 'short' });
+            
+            if (!monthlyData[monthKey]) {
+                monthlyData[monthKey] = { points: 0, matches: 0 };
+            }
+            
+            monthlyData[monthKey].points += result.ourScore;
+            monthlyData[monthKey].matches += 1;
+        });
+        
+        return monthlyData;
+    }
+
+    // Get player form (last 5 matches)
+    getPlayerForm(playerName) {
+        const results = this.getResults().slice(-5);
+        const playerKey = playerName.toLowerCase();
+        
+        return results.map(result => {
+            const playerScore = result.playerScores ? result.playerScores[playerKey] || 0 : 0;
+            return {
+                gameweek: result.gameweek,
+                points: playerScore,
+                teamResult: result.result
+            };
+        });
+    }
+
+    // Get best performing player
+    getBestPlayer() {
+        const players = this.getPlayers();
+        return players.reduce((best, current) => 
+            (current.totalPoints || 0) > (best.totalPoints || 0) ? current : best,
+            { totalPoints: 0 }
+        );
+    }
+
+    // Get recent matches (last 5)
+    getRecentMatches() {
+        return this.getResults().slice(-5);
+    }
+
+    // Get player performance by gameweek
+    getPlayerPerformanceByGameweek() {
+        const results = this.getResults();
+        const performanceData = {};
+        
+        results.forEach(result => {
+            if (result.playerScores) {
+                Object.keys(result.playerScores).forEach(playerKey => {
+                    if (!performanceData[playerKey]) {
+                        performanceData[playerKey] = [];
+                    }
+                    performanceData[playerKey].push({
+                        gameweek: result.gameweek,
+                        points: result.playerScores[playerKey],
+                        result: result.result,
+                        date: result.date
+                    });
+                });
+            }
+        });
+        
+        return performanceData;
+    }
+
+    // Get team performance trends
+    getPerformanceTrends() {
+        const results = this.getResults();
+        const trends = {
+            recentForm: [],
+            monthlyAverage: {},
+            streaks: { current: 0, longest: 0, type: null }
+        };
+        
+        // Recent form (last 5 matches)
+        trends.recentForm = results.slice(-5).map(r => r.result);
+        
+        // Calculate current streak
+        let currentStreak = 0;
+        let streakType = null;
+        
+        for (let i = results.length - 1; i >= 0; i--) {
+            if (streakType === null) {
+                streakType = results[i].result;
+                currentStreak = 1;
+            } else if (results[i].result === streakType) {
+                currentStreak++;
+            } else {
+                break;
+            }
+        }
+        
+        trends.streaks.current = currentStreak;
+        trends.streaks.type = streakType;
+        
+        return trends;
+    }
+
+    // Get detailed season statistics
+    getDetailedSeasonStats() {
+        const results = this.getResults();
+        const players = this.getPlayers();
+        
+        // Home vs Away performance (mock data - could be enhanced)
+        const homeMatches = Math.floor(results.length / 2);
+        const awayMatches = results.length - homeMatches;
+        
+        // Goals scored and conceded
+        const totalGoalsFor = results.reduce((sum, r) => sum + (r.ourScore || 0), 0);
+        const totalGoalsAgainst = results.reduce((sum, r) => sum + (r.opponentScore || 0), 0);
+        
+        // Clean sheets
+        const cleanSheets = results.filter(r => (r.opponentScore || 0) === 0).length;
+        
+        return {
+            ...this.getTeamStats(),
+            homeMatches,
+            awayMatches,
+            totalGoalsFor,
+            totalGoalsAgainst,
+            goalDifference: totalGoalsFor - totalGoalsAgainst,
+            cleanSheets,
+            averageGoalsFor: results.length > 0 ? (totalGoalsFor / results.length).toFixed(1) : 0,
+            averageGoalsAgainst: results.length > 0 ? (totalGoalsAgainst / results.length).toFixed(1) : 0
         };
     }
 

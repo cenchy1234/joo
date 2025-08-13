@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistics Demo | Olympique Ouezzane</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        .demo-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(30, 41, 59, 0.9);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid #1a4d3a;
+        }
+        .demo-btn {
+            background: linear-gradient(135deg, #1a4d3a 0%, #2d6748 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin: 1rem;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        .demo-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(26, 77, 58, 0.3);
+        }
+        .instructions {
+            background: rgba(15, 23, 42, 0.8);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+            text-align: left;
+        }
+        .instructions h3 {
+            color: #1a4d3a;
+            margin-bottom: 1rem;
+        }
+        .instructions ol {
+            margin-left: 1rem;
+        }
+        .instructions li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <h1>🏆 Statistics Page Demo</h1>
+        <p>Your new statistics page is ready! Here's how to use it:</p>
+        
+        <div class="instructions">
+            <h3>📊 Features Available:</h3>
+            <ol>
+                <li><strong>Player Statistics:</strong> Shows individual player points and rankings (Haitam, Ahmed, Zakaria, Aymane)</li>
+                <li><strong>Team Performance:</strong> Displays wins, draws, losses, average score, and win rate</li>
+                <li><strong>League Table:</strong> Complete table with all 12 teams, logos, points, and standings</li>
+                <li><strong>Performance Chart:</strong> Visual graph showing team vs opponent scores over time</li>
+                <li><strong>Form Guide:</strong> Recent match results (W/D/L indicators)</li>
+                <li><strong>Auto-refresh:</strong> Data updates automatically every 30 seconds</li>
+            </ol>
+        </div>
+
+        <div class="instructions">
+            <h3>🔧 How to Use:</h3>
+            <ol>
+                <li>Statistics and league table update automatically when match results are entered</li>
+                <li>The statistics page will automatically update with new data</li>
+                <li>League table includes all teams starting at 0 points</li>
+                <li>Your team (Olympique Ouezzane) is highlighted in green</li>
+            </ol>
+        </div>
+
+        <div style="margin: 2rem 0;">
+            <a href="statistics.html" class="demo-btn">
+                📈 View Statistics Page
+            </a>
+            <a href="league-table.html" class="demo-btn">
+                📊 View League Table
+            </a>
+            <a href="index.html" class="demo-btn">
+                🏠 Back to Website
+            </a>
+        </div>
+
+        <h3>🎯 Test It Out:</h3>
+        <button onclick="addSampleData()" class="demo-btn" style="background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);">
+            Add Sample Match Data
+        </button>
+        <p><small>This will add some test match results so you can see how the statistics work</small></p>
+    </div>
+
+    <script src="database.js"></script>
+    <script>
+        function addSampleData() {
+            // Add some sample match results
+            db.updateMatchResult(1, 85, 78, 22, 20, 21, 22); // vs Racing
+            db.updateMatchResult(2, 92, 88, 25, 23, 22, 22); // vs Dinamo Zagreb
+            db.updateMatchResult(3, 76, 82, 18, 19, 20, 19); // vs Middlesbrough
+            db.updateMatchResult(4, 88, 85, 24, 22, 21, 21); // vs Real Betis
+            db.updateMatchResult(5, 94, 90, 26, 24, 22, 22); // vs Corinthians
+            
+            alert('Sample data added! Now visit the Statistics page to see the results.');
+        }
+    </script>
+</body>
+</html>

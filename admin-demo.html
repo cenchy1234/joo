@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>League Management Demo | Admin Panel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        .demo-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(30, 41, 59, 0.9);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid #1a4d3a;
+        }
+        .demo-btn {
+            background: linear-gradient(135deg, #1a4d3a 0%, #2d6748 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin: 1rem;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        .demo-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(26, 77, 58, 0.3);
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        .feature-card {
+            background: rgba(15, 23, 42, 0.8);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid #1a4d3a;
+            text-align: left;
+        }
+        .feature-card h3 {
+            color: #1a4d3a;
+            margin-bottom: 1rem;
+        }
+        .feature-list {
+            margin: 1rem 0;
+        }
+        .feature-list li {
+            margin-bottom: 0.5rem;
+            list-style: none;
+            padding-left: 1rem;
+        }
+        .feature-list li:before {
+            content: "✅ ";
+            margin-right: 0.5rem;
+        }
+        .instructions {
+            background: rgba(15, 23, 42, 0.8);
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+            text-align: left;
+            border: 1px solid #1a4d3a;
+        }
+        .step {
+            background: rgba(26, 77, 58, 0.2);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border-left: 4px solid #1a4d3a;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <h1>🏆 League Management System Ready!</h1>
+        <p>Your admin panel now has a complete league management system to control all team standings!</p>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>📊 League Management Tab</h3>
+                <ul class="feature-list">
+                    <li>Add matches between any two teams</li>
+                    <li>Set scores for both teams</li>
+                    <li>Assign matches to specific gameweeks</li>
+                    <li>View all league matches in one place</li>
+                    <li>Delete matches if needed</li>
+                </ul>
+            </div>
+            
+            <div class="feature-card">
+                <h3>⚡ Real-time Updates</h3>
+                <ul class="feature-list">
+                    <li>League table updates automatically</li>
+                    <li>Statistics page reflects changes</li>
+                    <li>Public pages update instantly</li>
+                    <li>No manual calculations needed</li>
+                </ul>
+            </div>
+            
+            <div class="feature-card">
+                <h3>🔧 Easy Management</h3>
+                <ul class="feature-list">
+                    <li>3-tab organized interface</li>
+                    <li>Match Results (your team)</li>
+                    <li>League Management (all teams)</li>
+                    <li>Overview (complete standings)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h3>🚀 How to Use League Management:</h3>
+            
+            <div class="step">
+                <h4>Step 1: Access Admin Panel</h4>
+                <p>Type <code>admin.html</code> in your browser address bar</p>
+            </div>
+            
+            <div class="step">
+                <h4>Step 2: Go to League Management Tab</h4>
+                <p>Click the "League Management" tab in the admin panel</p>
+            </div>
+            
+            <div class="step">
+                <h4>Step 3: Add Match Results</h4>
+                <p>• Select Team 1 and Team 2 from dropdowns<br>
+                • Enter scores for both teams<br>
+                • Choose the gameweek<br>
+                • Click "Add League Match Result"</p>
+            </div>
+            
+            <div class="step">
+                <h4>Step 4: View Results</h4>
+                <p>• See all added matches in the list below<br>
+                • Delete matches if you made mistakes<br>
+                • Check the Overview tab for updated standings</p>
+            </div>
+            
+            <div class="step">
+                <h4>Step 5: Public Updates</h4>
+                <p>Your league table and statistics pages will automatically update!</p>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h3>🎯 What You Can Manage:</h3>
+            <p><strong>All 12 Teams:</strong></p>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1rem 0;">
+                <div>• Olympique Ouezzane</div>
+                <div>• Racing</div>
+                <div>• Real Betis</div>
+                <div>• Dinamo Zagreb</div>
+                <div>• CR Bernoussi</div>
+                <div>• Corinthians</div>
+                <div>• Le Havre</div>
+                <div>• LOSC Lille</div>
+                <div>• Middlesbrough</div>
+                <div>• Queens Park Rangers</div>
+                <div>• Rubin Kazan</div>
+                <div>• AS FAR</div>
+            </div>
+        </div>
+
+        <div style="margin: 2rem 0;">
+            <a href="admin.html" class="demo-btn">
+                ⚙️ Open Admin Panel
+            </a>
+            <a href="league-table.html" class="demo-btn">
+                📊 View League Table
+            </a>
+            <a href="statistics.html" class="demo-btn">
+                📈 View Statistics
+            </a>
+            <a href="index.html" class="demo-btn">
+                🏠 Back to Website
+            </a>
+        </div>
+
+        <div class="instructions">
+            <h3>🔥 Perfect Setup!</h3>
+            <p>You now have complete control over:</p>
+            <ul class="feature-list">
+                <li>Your team's individual match results with player scores</li>
+                <li>League-wide match results for all 12 teams</li>
+                <li>Automatic league table generation</li>
+                <li>Real-time updates across all public pages</li>
+                <li>Professional admin interface with organized tabs</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

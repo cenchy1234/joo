@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>League Table Demo | Olympique Ouezzane</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        .demo-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(30, 41, 59, 0.9);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid #1a4d3a;
+        }
+        .demo-btn {
+            background: linear-gradient(135deg, #1a4d3a 0%, #2d6748 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin: 1rem;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        .demo-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(26, 77, 58, 0.3);
+        }
+        .instructions {
+            background: rgba(15, 23, 42, 0.8);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+            text-align: left;
+        }
+        .instructions h3 {
+            color: #1a4d3a;
+            margin-bottom: 1rem;
+        }
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .feature-card {
+            background: rgba(15, 23, 42, 0.8);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid #1a4d3a;
+        }
+        .feature-card h4 {
+            color: #1a4d3a;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <h1>🏆 League Table Ready!</h1>
+        <p>Your new standalone league table is created and working perfectly!</p>
+        
+        <div class="feature-list">
+            <div class="feature-card">
+                <h4>📊 Standalone League Table</h4>
+                <p>Complete league table with all 12 teams, starting at 0 points since the season hasn't started yet.</p>
+            </div>
+            
+            <div class="feature-card">
+                <h4>🖼️ Team Logos</h4>
+                <p>All team logos from your img folder are properly displayed with fallback handling.</p>
+            </div>
+            
+            <div class="feature-card">
+                <h4>📱 Responsive Design</h4>
+                <p>Works perfectly on desktop and mobile with modern dark theme.</p>
+            </div>
+            
+            <div class="feature-card">
+                <h4>🔄 Live Updates</h4>
+                <p>Automatically updates when you enter match results in the admin panel.</p>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h3>🎯 What's Fixed & Updated:</h3>
+            <ul>
+                <li>✅ <strong>Separate League Table:</strong> Now has its own dedicated page</li>
+                <li>✅ <strong>All Teams at 0:</strong> Season hasn't started, so all teams have 0 points</li>
+                <li>✅ <strong>Alphabetical Order:</strong> Teams sorted alphabetically since all have same points</li>
+                <li>✅ <strong>Team Logos:</strong> All 12 team logos properly displayed</li>
+                <li>✅ <strong>Navigation Links:</strong> Added to main menu and cross-linked between pages</li>
+                <li>✅ <strong>Admin Icon Fixed:</strong> Added integrity check to Font Awesome CDN</li>
+                <li>✅ <strong>Clean Design:</strong> Professional look with season information</li>
+            </ul>
+        </div>
+
+        <div class="instructions">
+            <h3>📋 How to Use:</h3>
+            <ol>
+                <li><strong>View League Table:</strong> Click the button below or use main navigation</li>
+                <li><strong>Watch Updates:</strong> Table automatically updates with new standings</li>
+                <li><strong>Your Team:</strong> Olympique Ouezzane is highlighted in green</li>
+                <li><strong>Real-time Data:</strong> All statistics refresh automatically</li>
+            </ol>
+        </div>
+
+        <div style="margin: 2rem 0;">
+            <a href="league-table.html" class="demo-btn">
+                📊 View League Table
+            </a>
+            <a href="statistics.html" class="demo-btn">
+                📈 Full Statistics
+            </a>
+            <a href="index.html" class="demo-btn">
+                🏠 Back to Website
+            </a>
+        </div>
+
+        <div class="instructions">
+            <h3>🔗 Navigation Structure:</h3>
+            <p><strong>Main Menu now includes:</strong></p>
+            <ul>
+                <li>Home</li>
+                <li>Fixtures</li>
+                <li>Players</li>
+                <li><strong>League Table</strong> (NEW - standalone table)</li>
+                <li><strong>Statistics</strong> (full stats page)</li>
+                <li>Kits</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
