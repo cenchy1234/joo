@@ -67,6 +67,12 @@
             margin-bottom: 2rem;
         }
 
+        .table-container {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-radius: 10px;
+        }
+
         .league-table h2 {
             color: var(--text-light);
             font-size: 1.8rem;
@@ -209,7 +215,70 @@
             transform: scale(1.1) rotate(180deg);
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 600px) {
+            .league-container {
+                padding: 1rem;
+            }
+
+            .table-header,
+            .table-row {
+                grid-template-columns: 25px 25px 1fr 25px 25px 25px 25px 35px 35px 40px;
+                gap: 0.25rem;
+                padding: 0.5rem 0.75rem;
+                font-size: 0.75rem;
+            }
+
+            .team-logo {
+                width: 20px;
+                height: 20px;
+            }
+
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .page-header {
+                margin-bottom: 2rem;
+            }
+
+            .season-stats {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+
+            .season-stat {
+                padding: 0.75rem;
+            }
+
+            .stat-value {
+                font-size: 1.25rem;
+            }
+
+            .back-btn {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .refresh-btn {
+                bottom: 1rem;
+                right: 1rem;
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+
+            .league-table {
+                margin: 1rem 0;
+            }
+
+            .table-container {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+        }
+
+        @media (min-width: 601px) and (max-width: 768px) {
             .table-header,
             .table-row {
                 grid-template-columns: 40px 40px 1fr 35px 35px 35px 35px 45px 45px 55px;
@@ -276,20 +345,22 @@
         <!-- League Table -->
         <div class="league-table">
             <h2><i class="fas fa-trophy"></i> Current Standings</h2>
-            <div class="table-header">
-                <span class="position">Pos</span>
-                <span></span>
-                <span class="team-name">Team</span>
-                <span>P</span>
-                <span>W</span>
-                <span>D</span>
-                <span>L</span>
-                <span>GF</span>
-                <span>GA</span>
-                <span>Pts</span>
-            </div>
-            <div id="leagueTableBody">
-                <!-- League table rows will be populated by JavaScript -->
+            <div class="table-container">
+                <div class="table-header">
+                    <span class="position">Pos</span>
+                    <span></span>
+                    <span class="team-name">Team</span>
+                    <span>P</span>
+                    <span>W</span>
+                    <span>D</span>
+                    <span>L</span>
+                    <span>GF</span>
+                    <span>GA</span>
+                    <span>Pts</span>
+                </div>
+                <div id="leagueTableBody">
+                    <!-- League table rows will be populated by JavaScript -->
+                </div>
             </div>
         </div>
     </div>
