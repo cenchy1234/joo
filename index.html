@@ -175,6 +175,15 @@
             display: none;
         }
 
+        /* Navigation menu desktop styles */
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            margin: 0;
+            padding: 0;
+        }
+
         /* Mobile Navigation */
         @media (max-width: 768px) {
             body {
@@ -182,27 +191,47 @@
             }
 
             .header {
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                width: 100% !important;
                 background: rgba(15, 23, 42, 1) !important;
-                border-bottom: 2px solid rgba(26, 77, 58, 0.8);
+                border-bottom: 2px solid rgba(26, 77, 58, 0.8) !important;
+                z-index: 1000 !important;
+                height: 70px !important;
+                display: flex !important;
+                align-items: center !important;
             }
 
             .nav-container {
-                padding: 1rem;
-                background: transparent;
+                padding: 1rem !important;
+                background: transparent !important;
+                width: 100% !important;
+                max-width: none !important;
+                display: flex !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                margin: 0 !important;
             }
 
             .logo {
-                font-size: 1.2rem;
+                font-size: 1.2rem !important;
                 color: #f1f5f9 !important;
+                z-index: 1001 !important;
+                display: flex !important;
+                align-items: center !important;
+                gap: 0.5rem !important;
             }
 
             .logo span {
                 color: #f1f5f9 !important;
+                font-weight: bold !important;
             }
 
             .logo-img {
-                width: 35px;
-                height: 35px;
+                width: 35px !important;
+                height: 35px !important;
             }
 
             .nav-menu {
@@ -245,34 +274,51 @@
 
             .hamburger {
                 display: flex !important;
-                flex-direction: column;
-                cursor: pointer;
-                gap: 5px;
-                z-index: 1000;
-                padding: 8px;
-                background: rgba(26, 77, 58, 0.3);
-                border-radius: 5px;
-                border: 2px solid rgba(26, 77, 58, 0.6);
+                flex-direction: column !important;
+                cursor: pointer !important;
+                gap: 4px !important;
+                z-index: 1001 !important;
+                padding: 15px !important;
+                background: #ff0000 !important;
+                border-radius: 8px !important;
+                border: 3px solid #ffffff !important;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5) !important;
+                transition: all 0.3s ease !important;
+                position: relative !important;
+                width: 50px !important;
+                height: 50px !important;
+                justify-content: center !important;
+                align-items: center !important;
+            }
+
+            .hamburger:hover {
+                background: #cc0000 !important;
+                transform: scale(1.1) !important;
             }
 
             .bar {
-                width: 25px;
-                height: 3px;
-                background: #f1f5f9 !important;
-                transition: all 0.3s ease;
-                display: block;
+                width: 25px !important;
+                height: 4px !important;
+                background: #ffffff !important;
+                transition: all 0.3s ease !important;
+                display: block !important;
+                border-radius: 2px !important;
             }
 
-            .hamburger.active .bar:nth-child(2) {
-                opacity: 0;
+            .hamburger.active {
+                background: #00ff00 !important;
             }
 
             .hamburger.active .bar:nth-child(1) {
-                transform: translateY(8px) rotate(45deg);
+                transform: translateY(8px) rotate(45deg) !important;
+            }
+
+            .hamburger.active .bar:nth-child(2) {
+                opacity: 0 !important;
             }
 
             .hamburger.active .bar:nth-child(3) {
-                transform: translateY(-8px) rotate(-45deg);
+                transform: translateY(-8px) rotate(-45deg) !important;
             }
 
             .theme-toggle {
@@ -2615,8 +2661,46 @@
                 </div>
             </div>
         </section>
-    </main>    <script src="database.js"></script>
+    </main>    
+    <script src="database.js"></script>
+    <script src="script.js"></script>
     <script>
+        // Hamburger Menu Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburger = document.getElementById('hamburger');
+            const navMenu = document.getElementById('nav-menu');
+            
+            console.log('Hamburger:', hamburger); // Debug
+            console.log('Nav Menu:', navMenu); // Debug
+            
+            if (hamburger && navMenu) {
+                hamburger.addEventListener('click', function() {
+                    console.log('Hamburger clicked!'); // Debug
+                    hamburger.classList.toggle('active');
+                    navMenu.classList.toggle('active');
+                    
+                    // Prevent body scroll when menu is open
+                    if (navMenu.classList.contains('active')) {
+                        document.body.style.overflow = 'hidden';
+                    } else {
+                        document.body.style.overflow = '';
+                    }
+                });
+                
+                // Close menu when clicking nav links
+                const navLinks = navMenu.querySelectorAll('.nav-link');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        hamburger.classList.remove('active');
+                        navMenu.classList.remove('active');
+                        document.body.style.overflow = '';
+                    });
+                });
+            } else {
+                console.error('Hamburger menu elements not found');
+            }
+        });
+
         // Team logos mapping
         const teamLogos = {
             "Racing": "racing logo.png",
