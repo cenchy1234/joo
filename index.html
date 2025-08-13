@@ -6,6 +6,7 @@
     <title>Olympique Ouezzane - Fantasy Premier League</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
     <style>
         /* Complete CSS Reset and Modern Styling */
         * {
@@ -39,6 +40,10 @@
             line-height: 1.6;
             min-height: 100vh;
             transition: all 0.3s ease;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+            width: 100%;
         }
 
         /* Header */
@@ -68,6 +73,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .logo {
@@ -163,6 +170,11 @@
             box-shadow: 0 4px 15px rgba(26, 77, 58, 0.4);
         }
 
+        /* Desktop hamburger should be hidden */
+        .hamburger {
+            display: none;
+        }
+
         /* Mobile Navigation */
         @media (max-width: 768px) {
             .nav-container {
@@ -192,6 +204,7 @@
                 gap: 2rem;
                 padding: 2rem 0;
                 transition: left 0.3s ease;
+                z-index: 999;
             }
 
             .nav-menu.active {
@@ -206,14 +219,61 @@
                 border-radius: 12px;
             }
 
-            .mobile-menu-toggle {
-                display: block;
+            .hamburger {
+                display: flex;
+                flex-direction: column;
+                cursor: pointer;
+                gap: 4px;
+                z-index: 1000;
+            }
+
+            .bar {
+                width: 25px;
+                height: 3px;
+                background: var(--text-light);
+                transition: all 0.3s ease;
+            }
+
+            .hamburger.active .bar:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active .bar:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+
+            .hamburger.active .bar:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
             }
 
             .theme-toggle {
                 width: 35px;
                 height: 35px;
                 margin-left: 1rem;
+            }
+
+            /* Ensure all containers are mobile-friendly */
+            .container,
+            section {
+                padding-left: 1rem;
+                padding-right: 1rem;
+                width: 100%;
+                max-width: 100%;
+                box-sizing: border-box;
+            }
+
+            /* Hero section mobile adjustments */
+            .hero {
+                padding: 8rem 1rem 4rem;
+                text-align: center;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
             }
 
             /* Mobile Player Cards - Simplified */
@@ -2308,11 +2368,13 @@
                 <span>Olympique Ouezzane</span>
             </a>
             
-            <button class="mobile-menu-toggle" id="mobileMenuToggle">
-                <i class="fas fa-bars"></i>
+            <button class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
             </button>
             
-            <ul class="nav-menu" id="navMenu">
+            <ul class="nav-menu" id="nav-menu">
                 <li><a href="#home" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
                 <li><a href="#fixtures" class="nav-link"><i class="fas fa-calendar"></i> Fixtures</a></li>
                 <li><a href="#players" class="nav-link"><i class="fas fa-users"></i> Players</a></li>
